@@ -38,7 +38,7 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 ### App Switching
 - `Win + Tab`: App switcher (like macOS Cmd + Tab)
 - `Win + Shift + Tab`: Reverse app switcher
-- `Win + \``: Switch between windows of the same app
+- `Win + \``: Switch between windows of same app (maps to Ctrl + Tab)
 
 ### Additional Features
 - `Ctrl + Alt + D`: Show Start menu (similar to showing Dock in macOS)
