@@ -23,6 +23,13 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 - `Win + F`: Find (maps to Ctrl + F)
 - `Win + T`: New Tab (maps to Ctrl + T)
 
+### Text Navigation and Selection
+- `Win + Left/Right`: Move cursor to start/end of line (maps to Ctrl + Left/Right)
+- `Win + Up/Down`: Move cursor to start/end of document (maps to Ctrl + Up/Down)
+- `Alt + Left/Right`: Move cursor by word (maps to Ctrl + Left/Right)
+- `Shift + Alt + Left/Right`: Select text by word
+- Hold `Shift` with any of the above to select text
+
 ### Window Management
 - `Ctrl + Alt + Left`: Snap window to left half of screen
 - `Ctrl + Alt + Right`: Snap window to right half of screen
