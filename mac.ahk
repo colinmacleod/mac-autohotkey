@@ -121,8 +121,8 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
     Send("{Shift up}{Alt up}")
 }
 
-; Switch windows in same app (Cmd + `) → Alt + Esc
-#`::!Esc
+; Switch windows in same app (Cmd + `)
+#SC029::Send "^{Tab}"  ; SC029 is the scan code for the backtick/grave accent key
 
 ; Optional: show message that script is running
 #p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
