@@ -1,33 +1,19 @@
 #Requires AutoHotkey v2.0
 #SingleInstance
 
+; Set default send mode to more reliable input mode
+SendMode "Input"
+
 ; -------------------------
 ; Mac-style Shortcut Remaps
 ; -------------------------     
 
-; Variables to track key state
-startMenuSuppressed := false
-
-; Block Windows key from opening Start menu while preserving Win+Tab
-~LWin::
-{
-    startMenuSuppressed := true
-    SetTimer () => startMenuSuppressed := false, -300
-    if GetKeyState("Tab")
-        return
-    Send "{Escape}"
-}
-~RWin::
-{
-    startMenuSuppressed := true
-    SetTimer () => startMenuSuppressed := false, -300
-    if GetKeyState("Tab")
-        return
-    Send "{Escape}"
-}
+; Test shortcut to verify script is running (Win+P shows a message)
+#p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
 
 ; Show Start menu
 ^!d::Send "^{Escape}"
+#Space::Send "^{Escape}"  ; Alternative shortcut for Start menu
 
 ; Window Management
 ^!Left::  ; Snap to left half
@@ -66,7 +52,8 @@ startMenuSuppressed := false
 Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 
 ; Copy / Paste / Cut
-#c::^c
+#c::^c  ; Use native Windows shortcut
+#+c::^+c  ; Copy with formatting
 #v::^v
 #x::^x
 
@@ -74,10 +61,11 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #z::^z
 #+z::^y
 
-; Select All / Save / Find
+; Select All / Save / Find / Refresh
 #a::^a
 #s::^s
 #f::^f
+#r::^r  ; Refresh (Cmd+R)
 
 ; Close window (Cmd+W or Cmd+Q)
 #w::!F4
@@ -124,5 +112,5 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 ; Switch windows in same app (Cmd + `)
 #SC029::Send "^{Tab}"  ; SC029 is the scan code for the backtick/grave accent key
 
-; Optional: show message that script is running
-#p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
+; Screenshot area selection (like Cmd+Shift+5)
+#+5::Send "#+s"  ; Windows key + Shift + S is Windows' built-in screenshot tool

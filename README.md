@@ -14,6 +14,7 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 
 ### Basic Mac Shortcuts (using Windows key as ⌘)
 - `Win + C`: Copy (maps to Ctrl + C)
+- `Win + Shift + C`: Copy with formatting (maps to Ctrl + Shift + C)
 - `Win + V`: Paste (maps to Ctrl + V)
 - `Win + X`: Cut (maps to Ctrl + X)
 - `Win + Z`: Undo (maps to Ctrl + Z)
@@ -21,6 +22,7 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 - `Win + A`: Select All (maps to Ctrl + A)
 - `Win + S`: Save (maps to Ctrl + S)
 - `Win + F`: Find (maps to Ctrl + F)
+- `Win + R`: Refresh (maps to Ctrl + R)
 - `Win + T`: New Tab (maps to Ctrl + T)
 
 ### Text Navigation and Selection
@@ -40,9 +42,11 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 - `Win + Shift + Tab`: Reverse app switcher
 - `Win + \``: Switch between windows of same app (maps to Ctrl + Tab)
 
+### Screenshots
+- `Win + Shift + 5`: Select area for screenshot (maps to Win + Shift + S)
+
 ### Additional Features
-- `Ctrl + Alt + D`: Show Start menu (similar to showing Dock in macOS)
-- Windows key alone won't open Start menu (like Cmd key on Mac)
+- `Ctrl + Alt + D` or `Win + Space`: Show Start menu (similar to showing Dock in macOS)
 - Preserves Win + Tab functionality for Windows task view
 
 ## Requirements
@@ -54,12 +58,13 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 1. Install AutoHotkey v2 from [autohotkey.com](https://www.autohotkey.com/)
 2. Download `mac.ahk` from this repository
 3. Double-click `mac.ahk` to run the script
-4. (Optional) Place a shortcut to the script in your Windows Startup folder to run automatically on boot
+4. Press `Win + P` to verify the script is running - you should see a confirmation message
+5. (Optional) Place a shortcut to the script in your Windows Startup folder to run automatically on boot
 
 ## Notes
 - The script uses the Windows key as a Command (⌘) key equivalent
+- The Windows key still works normally to open the Start menu
 - Some shortcuts might conflict with existing Windows shortcuts
-- The script preserves important Windows functionality like Win + Tab for task view
 - This script is NOT designed for Apple keyboards - it's for Windows/PC keyboards only
 
 ## Contributing
