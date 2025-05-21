@@ -12,7 +12,7 @@ SendMode "Input"
 #p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
 
 ; Show Start menu
-^!d::Send "^{Escape}"
+#!d::Send "^{Escape}"
 #Space::Send "^{Escape}"  ; Alternative shortcut for Start menu
 
 ; Window Management
@@ -65,11 +65,20 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #a::^a
 #s::^s
 #f::^f
-#r::^r  ; Refresh (Cmd+R)
+
+; Refresh (Win+R for single refresh, double Win+R for double refresh)
+#r::^r
 
 ; Close window (Cmd+W or Cmd+Q)
-#w::!F4
+#w::^w  ; Close tab instead of window
 #q::!F4
+
+; Map Command+Left Click to Ctrl+Left Click
+#LButton::Send "{Ctrl down}{LButton down}{LButton up}{Ctrl up}"
+
+; Reverse scroll wheel direction (natural scrolling like macOS)
+WheelDown::Send "{WheelUp}"
+WheelUp::Send "{WheelDown}"
 
 ; Word/line navigation (Cmd + Arrows)
 #Left::^Left
@@ -82,6 +91,10 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 !Right::^Right
 !+Left::^+Left  ; Select word by word to the left
 !+Right::^+Right  ; Select word by word to the right
+
+; Home/End keys to match macOS behavior
++Home::Send "+{Home}"  ; Select to beginning of line
++End::Send "+{End}"     ; Select to end of line
 
 ; App switcher: Hold Win + Tap Tab to cycle, release Win to select
 #Tab::

@@ -31,11 +31,18 @@ If you're using an Apple keyboard with Windows, this script may not be suitable 
 - `Alt + Left/Right`: Move cursor by word (maps to Ctrl + Left/Right)
 - `Shift + Alt + Left/Right`: Select text by word
 - Hold `Shift` with any of the above to select text
+- `Home`: Go to beginning of document
+- `End`: Go to end of document
+- `Shift + Home`: Select to beginning of line
+- `Shift + End`: Select to end of line
 
 ### Window Management
 - `Ctrl + Alt + Left`: Snap window to left half of screen
 - `Ctrl + Alt + Right`: Snap window to right half of screen
 - `Ctrl + Alt + Enter`: Toggle window maximize/restore
+
+### Mouse
+- `Win + Left Click`: Maps to Ctrl + Left Click
 
 ### App Switching
 - `Win + Tab`: App switcher (like macOS Cmd + Tab)
