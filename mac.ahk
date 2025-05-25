@@ -8,8 +8,11 @@ SendMode "Input"
 ; Mac-style Shortcut Remaps
 ; -------------------------     
 
+; All hotkeys below are DISABLED when a window with 'Dev-Mac-Mini' in its title is active (e.g., Jump Desktop remote session)
+#HotIf !WinActive("Dev-Mac-Mini")
+
 ; Test shortcut to verify script is running (Win+P shows a message)
-#p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
+; #p::MsgBox "✅ Mac-style hotkeys enabled on Windows"
 
 ; Show Start menu
 #!d::Send "^{Escape}"
@@ -19,21 +22,66 @@ SendMode "Input"
 ^!Left::  ; Snap to left half
 {
     activeWindow := WinExist("A")
+    if !activeWindow
+        return
+
+    ; Restore window first if maximized
     if WinGetMinMax(activeWindow) = 1  ; If maximized
         WinRestore activeWindow        ; Restore before moving
-    MonitorGetWorkArea(, &left, &top, &right, &bottom)
+
+    ; Get current window position
+    WinGetPos &winX, &winY, &winWidth, &winHeight, activeWindow
+
+    ; Find the correct monitor by checking each one
+    monitorIndex := 1
+    Loop {
+        if !MonitorGet(A_Index, &mLeft, &mTop, &mRight, &mBottom)
+            break
+        if (winX >= mLeft && winX <= mRight && winY >= mTop && winY <= mBottom) {
+            monitorIndex := A_Index
+            break
+        }
+    }
+
+    ; Get work area of the found monitor
+    MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
+
     width := (right - left) // 2
-    WinMove left, top, width, bottom - top, activeWindow
+    height := bottom - top
+    WinMove left, top, width, height, activeWindow
 }
 
 ^!Right::  ; Snap to right half
 {
     activeWindow := WinExist("A")
+    if !activeWindow
+        return
+
+    ; Restore window first if maximized
     if WinGetMinMax(activeWindow) = 1  ; If maximized
         WinRestore activeWindow        ; Restore before moving
-    MonitorGetWorkArea(, &left, &top, &right, &bottom)
-    width := (right - left) // 2
-    WinMove left + width, top, width, bottom - top, activeWindow
+
+    ; Get current window position
+    WinGetPos &winX, &winY, &winWidth, &winHeight, activeWindow
+
+    ; Find the correct monitor by checking each one
+    monitorIndex := 1
+    Loop {
+        if !MonitorGet(A_Index, &mLeft, &mTop, &mRight, &mBottom)
+            break
+        if (winX >= mLeft && winX <= mRight && winY >= mTop && winY <= mBottom) {
+            monitorIndex := A_Index
+            break
+        }
+    }
+
+    ; Get work area of the found monitor
+    MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
+
+    targetWidth := (right - left) // 2
+    targetX := left + targetWidth
+    height := bottom - top
+    WinMove targetX, top, targetWidth, height, activeWindow
 }
 
 ^!Enter::  ; Toggle maximize
@@ -73,12 +121,15 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #w::^w  ; Close tab instead of window
 #q::!F4
 
+; Map Win+L to Ctrl+L
+#l::^l
+
 ; Map Command+Left Click to Ctrl+Left Click
 #LButton::Send "{Ctrl down}{LButton down}{LButton up}{Ctrl up}"
 
 ; Reverse scroll wheel direction (natural scrolling like macOS)
-WheelDown::Send "{WheelUp}"
-WheelUp::Send "{WheelDown}"
+; WheelDown::Send "{WheelUp}"
+; WheelUp::Send "{WheelDown}"
 
 ; Word/line navigation (Cmd + Arrows)
 #Left::^Left
@@ -127,3 +178,5 @@ WheelUp::Send "{WheelDown}"
 
 ; Screenshot area selection (like Cmd+Shift+5)
 #+5::Send "#+s"  ; Windows key + Shift + S is Windows' built-in screenshot tool
+
+#HotIf  ; End context sensitivity
