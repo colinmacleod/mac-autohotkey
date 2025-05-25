@@ -46,7 +46,8 @@ SendMode "Input"
     ; Get work area of the found monitor
     MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
 
-    width := (right - left) // 2
+    totalWidth := right - left
+    width := totalWidth // 2  ; Integer division to ensure exact half
     height := bottom - top
     WinMove left, top, width, height, activeWindow
 }
@@ -78,10 +79,11 @@ SendMode "Input"
     ; Get work area of the found monitor
     MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
 
-    targetWidth := (right - left) // 2
-    targetX := left + targetWidth
+    totalWidth := right - left
+    width := totalWidth // 2  ; Integer division to ensure exact half
+    targetX := left + width  ; Place exactly at the midpoint
     height := bottom - top
-    WinMove targetX, top, targetWidth, height, activeWindow
+    WinMove targetX, top, width, height, activeWindow
 }
 
 ^!Enter::  ; Toggle maximize
