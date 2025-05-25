@@ -4,6 +4,9 @@
 ; Set default send mode to more reliable input mode
 SendMode "Input"
 
+; Add DLL function definitions at the top
+#DllLoad "user32.dll"
+
 ; -------------------------
 ; Mac-style Shortcut Remaps
 ; -------------------------     
@@ -21,69 +24,18 @@ SendMode "Input"
 ; Window Management
 ^!Left::  ; Snap to left half
 {
-    activeWindow := WinExist("A")
-    if !activeWindow
-        return
-
-    ; Restore window first if maximized
-    if WinGetMinMax(activeWindow) = 1  ; If maximized
-        WinRestore activeWindow        ; Restore before moving
-
-    ; Get current window position
-    WinGetPos &winX, &winY, &winWidth, &winHeight, activeWindow
-
-    ; Find the correct monitor by checking each one
-    monitorIndex := 1
-    Loop {
-        if !MonitorGet(A_Index, &mLeft, &mTop, &mRight, &mBottom)
-            break
-        if (winX >= mLeft && winX <= mRight && winY >= mTop && winY <= mBottom) {
-            monitorIndex := A_Index
-            break
-        }
-    }
-
-    ; Get work area of the found monitor
-    MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
-
-    totalWidth := right - left
-    width := totalWidth // 2  ; Integer division to ensure exact half
-    height := bottom - top
-    WinMove left, top, width, height, activeWindow
+    SetKeyDelay 50
+    SendEvent "{LWin Down}"
+    SendEvent "{Left}"
+    SendEvent "{LWin Up}"
 }
 
 ^!Right::  ; Snap to right half
 {
-    activeWindow := WinExist("A")
-    if !activeWindow
-        return
-
-    ; Restore window first if maximized
-    if WinGetMinMax(activeWindow) = 1  ; If maximized
-        WinRestore activeWindow        ; Restore before moving
-
-    ; Get current window position
-    WinGetPos &winX, &winY, &winWidth, &winHeight, activeWindow
-
-    ; Find the correct monitor by checking each one
-    monitorIndex := 1
-    Loop {
-        if !MonitorGet(A_Index, &mLeft, &mTop, &mRight, &mBottom)
-            break
-        if (winX >= mLeft && winX <= mRight && winY >= mTop && winY <= mBottom) {
-            monitorIndex := A_Index
-            break
-        }
-    }
-
-    ; Get work area of the found monitor
-    MonitorGetWorkArea(monitorIndex, &left, &top, &right, &bottom)
-
-    totalWidth := right - left
-    width := totalWidth // 2  ; Integer division to ensure exact half
-    targetX := left + width  ; Place exactly at the midpoint
-    height := bottom - top
-    WinMove targetX, top, width, height, activeWindow
+    SetKeyDelay 50
+    SendEvent "{LWin Down}"
+    SendEvent "{Right}"
+    SendEvent "{LWin Up}"
 }
 
 ^!Enter::  ; Toggle maximize
