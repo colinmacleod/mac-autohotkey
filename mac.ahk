@@ -67,6 +67,7 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #a::^a
 #s::^s
 #f::^f
+#d::^d
 
 ; Refresh (Win+R for single refresh, double Win+R for double refresh)
 #r::^r
@@ -132,5 +133,11 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 
 ; Screenshot area selection (like Cmd+Shift+5)
 #+5::Send "#+s"  ; Windows key + Shift + S is Windows' built-in screenshot tool
+
+; Git Bash specific mappings (for MINGW64 windows)
+#HotIf WinActive("MINGW64")
+#c::Send "^{Ins}"  ; Copy in Git Bash
+#v::Send "+{Ins}"  ; Paste in Git Bash
+#HotIf  ; End Git Bash context
 
 #HotIf  ; End context sensitivity
