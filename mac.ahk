@@ -7,6 +7,7 @@ SendMode "Input"
 ; Add DLL function definitions at the top
 #DllLoad "user32.dll"
 
+
 ; -------------------------
 ; Mac-style Shortcut Remaps
 ; -------------------------     
@@ -19,7 +20,7 @@ SendMode "Input"
 
 ; Show Start menu
 #!d::Send "^{Escape}"
-#Space::Send "^{Escape}"  ; Alternative shortcut for Start menu
+#Space::Send "!{Space}"  ; Win+Space activates PowerToys Run (Alt+Space)
 
 ; Window Management
 ^!Left::  ; Snap to left half
@@ -57,6 +58,11 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #c::^c  ; Use native Windows shortcut
 #+c::^+c  ; Copy with formatting
 #v::^v
+#!+v::
+{
+    ; Paste without formatting - this completely overrides any system shortcut
+    Send "^+v"
+}
 #x::^x
 
 ; Undo / Redo
@@ -69,15 +75,22 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #f::^f
 #d::^d
 
+; Delete (Cmd+Backspace)
+#BackSpace::Send "{Delete}"  ; Map Win+Backspace to Delete key
+
 ; Refresh (Win+R for single refresh, double Win+R for double refresh)
 #r::^r
 
 ; Close window (Cmd+W or Cmd+Q)
-#w::^w  ; Close tab instead of window
+#w::^F4  ; Close tab instead of window
 #q::!F4
 
-; Map Win+L to Ctrl+L
-#l::^l
+; Disable Win+L lock and remap to Ctrl+L
+#l::
+{
+    Send "^l"  ; Send Ctrl+L for address bar focus
+}
+^!l::Run "rundll32.exe user32.dll,LockWorkStation"  ; Ctrl+Alt+L locks the PC
 
 ; Map Command+Left Click to Ctrl+Left Click
 #LButton::Send "{Ctrl down}{LButton down}{LButton up}{Ctrl up}"
@@ -131,8 +144,10 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 ; Switch windows in same app (Cmd + `)
 #SC029::Send "^{Tab}"  ; SC029 is the scan code for the backtick/grave accent key
 
-; Screenshot area selection (like Cmd+Shift+5)
-#+5::Send "#+s"  ; Windows key + Shift + S is Windows' built-in screenshot tool
+; Screenshot area selection (Mac: Win+Shift+5, triggers Alt+Shift+R)
+#+5::Send "^!5"
+
+#HotIf  ; End main context (not Jump Desktop)
 
 ; Git Bash specific mappings (for MINGW64 windows)
 #HotIf WinActive("MINGW64")
@@ -140,4 +155,7 @@ Hotkey "#+NumpadAdd", (*) => Send("^+{NumpadAdd}")
 #v::Send "+{Ins}"  ; Paste in Git Bash
 #HotIf  ; End Git Bash context
 
-#HotIf  ; End context sensitivity
+; Jump Desktop specific mappings (only active when Jump Desktop window is focused)
+#HotIf WinActive("Dev-Mac-Mini")
+^F12::WinMinimize "A"  ; Minimize active window (Ctrl+F12)
+#HotIf  ; End Jump Desktop context
